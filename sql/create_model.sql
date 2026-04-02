@@ -22,9 +22,6 @@ OPTIONS(
   input_label_cols         = ['is_podium'],
   data_split_method        = 'RANDOM',
   data_split_eval_fraction = 0.15,
-  max_iterations           = 50,
-  learn_rate_strategy      = 'constant',
-  learn_rate               = 0.05,
   l2_reg                   = 0.1
 )
 AS

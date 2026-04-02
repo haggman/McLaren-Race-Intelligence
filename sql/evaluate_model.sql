@@ -16,15 +16,17 @@ FROM ML.EVALUATE(MODEL `f1_data.podium_predictor`);
 
 
 -- ============================================================
--- 2. Feature Importance
--- Shows which variables drive the prediction.
--- Expected: grid_position dominates; circuit history and
--- recent form provide secondary signal.
+-- 2. Model Weights
+-- Shows the learned coefficient for each feature.
+-- Larger absolute values = stronger influence on prediction.
+-- Negative weight = higher values reduce podium probability.
+-- Expected: grid_position has the largest negative weight
+-- (worse starting position = fewer podiums).
 -- ============================================================
 
 SELECT *
-FROM ML.FEATURE_IMPORTANCE(MODEL `f1_data.podium_predictor`)
-ORDER BY importance_gain DESC;
+FROM ML.WEIGHTS(MODEL `f1_data.podium_predictor`)
+ORDER BY ABS(weight) DESC;
 
 
 -- ============================================================
