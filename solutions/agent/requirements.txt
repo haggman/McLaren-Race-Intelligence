@@ -1,0 +1,5 @@
+# McLaren Race Intelligence Platform — ADK Agent Dependencies
+google-adk
+google-cloud-bigquery
+pandas
+db-dtypes

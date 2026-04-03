@@ -1,0 +1,21 @@
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+
+# ADK local storage
+.adk/
+
+# Environment files with real credentials
+.env
+
+# OS
+.DS_Store
+Thumbs.db
