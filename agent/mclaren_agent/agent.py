@@ -2,12 +2,12 @@
 McLaren Race Intelligence Platform — ADK Agent
 ================================================
 The data science tier of the McLaren Race Intelligence Platform.
-
+ 
 This agent provides programmatic access to BigQuery race data, a BQML
 podium prediction model, and data visualization — capabilities that
 Gemini Enterprise and Agent Designer cannot provide because they are
 retrieval systems, not computation systems.
-
+ 
 Architecture:
     root_agent (mclaren_race_intelligence)
         ├── BigQueryToolset  — query F1 data via ADK's built-in BQ tools
@@ -20,6 +20,7 @@ import os
 import google.auth
 from google.adk.agents import Agent
 from google.adk.tools.agent_tool import AgentTool
+from google.adk.tools.bigquery import BigQueryCredentialsConfig, BigQueryToolset
 from google.adk.code_executors import BuiltInCodeExecutor
 from google.cloud import bigquery
 
@@ -40,30 +41,7 @@ LOCATION = os.environ.get("GOOGLE_CLOUD_LOCATION", "us-central1")
 # ============================================================================
 # TODO 1 — Connect to BigQuery using ADK's Built-in BigQueryToolset
 # ============================================================================
-#
-# WHAT YOU'RE BUILDING:
-#   ADK ships with a first-party BigQueryToolset that gives your agent the
-#   ability to discover datasets, inspect table schemas, and execute SQL —
-#   all through Application Default Credentials (ADC), which are already
-#   configured in your Cloud Shell environment.
-#
-# WHAT TO DO:
-#   1. Import BigQueryCredentialsConfig and BigQueryToolset from
-#      google.adk.tools.bigquery
-#   2. Load ADC credentials using google.auth.default()
-#   3. Create a BigQueryCredentialsConfig with those credentials
-#   4. Create a BigQueryToolset instance with that config
-#
-# WHEN YOU'RE DONE, the toolset will provide these tools to the agent:
-#   - list_dataset_ids: discover available datasets
-#   - list_table_ids:   list tables in a dataset
-#   - get_table_info:   inspect a table's schema
-#   - execute_sql:      run SQL queries against BigQuery
-#
-# HINT: The import path is google.adk.tools.bigquery and the setup is
-#       about 4 lines of code. ADC handles all authentication automatically.
-#
-# Replace the line below with your implementation:
+
 bigquery_toolset = None  # TODO 1: Replace with BigQueryToolset setup
 
 
@@ -178,69 +156,12 @@ def get_podium_predictions(season: int = 2024) -> dict:
 # ============================================================================
 # TODO 2 — Create the Visualization Agent
 # ============================================================================
-#
-# WHAT YOU'RE BUILDING:
-#   A visualization agent that generates charts using Python code execution.
-#   The agent's instructions and description are already defined in
-#   prompts.py — your job is to create the agent and wrap it properly.
-#
-# WHAT TO DO:
-#   1. Create an Agent instance with:
-#      - name: "visualization_agent"
-#      - model: "gemini-2.5-flash"
-#      - description: VISUALIZATION_AGENT_DESCRIPTION (from prompts.py)
-#      - instruction: VISUALIZATION_INSTRUCTIONS (from prompts.py)
-#      - code_executor: BuiltInCodeExecutor()
-#   2. Wrap it with AgentTool so the root agent can call it as a tool
-#
-# WHY AgentTool?
-#   BuiltInCodeExecutor (which enables Python code generation and execution)
-#   cannot coexist with other tool types in the same Gemini API call. By
-#   wrapping the visualization agent with AgentTool, the root agent treats
-#   it as a regular function call, and the viz agent runs in its own
-#   isolated API call with only the code executor. No tool conflicts.
-#
-#   This is a real pattern you'll use whenever you need to combine agents
-#   that have incompatible tool types — it's not specific to this lab.
-#
-# HINT: Both imports are already at the top of this file:
-#       - BuiltInCodeExecutor from google.adk.code_executors
-#       - AgentTool from google.adk.tools.agent_tool
-#
-# Replace the lines below with your implementation:
+
 visualization_tool = None  # TODO 2: Create Agent, then wrap with AgentTool
 
 
 # ============================================================================
 # TODO 3 — Assemble the Root Agent
 # ============================================================================
-#
-# WHAT YOU'RE BUILDING:
-#   The root agent that ties everything together. This is where the
-#   architecture becomes real — you take all the components you've built
-#   and configured, and assemble them into a working agent.
-#
-# WHAT TO DO:
-#   Create an Agent instance with:
-#   1. name: "mclaren_race_intelligence"
-#   2. model: "gemini-2.5-flash"
-#   3. description: ROOT_AGENT_DESCRIPTION (from prompts.py)
-#   4. instruction: call get_root_agent_instructions(PROJECT_ID) — this
-#      returns the system prompt with your project ID embedded for
-#      fully-qualified BigQuery table references
-#   5. tools: a list containing ALL THREE tools the agent needs:
-#      - bigquery_toolset (from TODO 1) — data access
-#      - get_podium_predictions — ML inference (the function defined above)
-#      - visualization_tool (from TODO 2) — chart generation
-#
-# WHY THIS MATTERS:
-#   This is the moment where you see how an ADK agent is assembled from
-#   discrete components. The model provides reasoning. The instructions
-#   provide domain context. The tools provide capabilities. The agent
-#   decides which tool to call based on the user's question — that
-#   decision-making is what makes it an agent, not just a chatbot.
-#
-# HINT: Look at the imports from prompts.py at the top of this file.
-#
-# Replace the line below with your implementation:
+
 root_agent = None  # TODO 3: Create the root Agent

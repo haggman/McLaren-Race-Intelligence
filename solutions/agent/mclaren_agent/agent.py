@@ -41,6 +41,7 @@ LOCATION = os.environ.get("GOOGLE_CLOUD_LOCATION", "us-central1")
 # ============================================================================
 # TODO 1 — SOLUTION: Connect to BigQuery
 # ============================================================================
+
 credentials, _ = google.auth.default()
 credentials_config = BigQueryCredentialsConfig(credentials=credentials)
 bigquery_toolset = BigQueryToolset(credentials_config=credentials_config)
@@ -144,6 +145,7 @@ def get_podium_predictions(season: int = 2024) -> dict:
 # ============================================================================
 # TODO 2 — SOLUTION: Visualization Agent + AgentTool
 # ============================================================================
+
 visualization_agent = Agent(
     name="visualization_agent",
     model="gemini-2.5-flash",
@@ -158,6 +160,7 @@ visualization_tool = AgentTool(agent=visualization_agent)
 # ============================================================================
 # TODO 3 — SOLUTION: Root Agent
 # ============================================================================
+
 root_agent = Agent(
     name="mclaren_race_intelligence",
     model="gemini-2.5-flash",
