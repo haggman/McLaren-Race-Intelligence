@@ -3,3 +3,4 @@ google-adk
 google-cloud-bigquery
 pandas
 db-dtypes
+google-cloud-aiplatform[agent_engines,adk]

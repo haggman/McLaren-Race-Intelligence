@@ -34,8 +34,8 @@ from .prompts import (
 # ============================================================================
 # Configuration
 # ============================================================================
-PROJECT_ID = os.environ.get("GOOGLE_CLOUD_PROJECT")
-LOCATION = os.environ.get("GOOGLE_CLOUD_LOCATION", "us-central1")
+PROJECT_ID = os.environ.get("PROJECT_ID")
+LOCATION = os.environ.get("REGION", "us-central1")
 
 
 # ============================================================================
