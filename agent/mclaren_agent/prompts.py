@@ -149,8 +149,8 @@ import numpy as np
 ## McLaren Branding
 
 Use these colors for all charts:
-- Primary (papaya orange): #FF8700
-- Secondary (dark blue): #0D1B2A
+- Primary (papaya): #FF8000
+- Secondary (anthracite): #53565A
 - Accent 1 (white): #FFFFFF
 - Accent 2 (silver): #A0A0A0
 - Background: #1A1A2E (dark) with white text for labels
