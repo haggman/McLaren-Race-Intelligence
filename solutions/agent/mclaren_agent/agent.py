@@ -23,6 +23,7 @@ from google.adk.tools.agent_tool import AgentTool
 from google.adk.tools.bigquery import BigQueryCredentialsConfig, BigQueryToolset
 from google.adk.code_executors import BuiltInCodeExecutor
 from google.cloud import bigquery
+from google.genai import types
 
 from .prompts import (
     ROOT_AGENT_DESCRIPTION,
@@ -37,6 +38,15 @@ from .prompts import (
 PROJECT_ID = os.environ.get("PROJECT_ID")
 LOCATION = os.environ.get("REGION", "us-central1")
 
+# ============================================================================
+# Enable Provisioned Throughput (where applicable)
+# ============================================================================
+shared_config = types.GenerateContentConfig(
+    http_options=types.HttpOptions(
+        api_version="v1",
+        headers={"X-Vertex-AI-LLM-Request-Type": "shared"},
+    ),
+)
 
 # ============================================================================
 # TODO 1 — SOLUTION: Connect to BigQuery
@@ -148,7 +158,8 @@ def get_podium_predictions(season: int = 2024) -> dict:
 
 visualization_agent = Agent(
     name="visualization_agent",
-    model="gemini-2.5-flash",
+    model="gemini-3-flash-preview",
+    generate_content_config=shared_config,
     description=VISUALIZATION_AGENT_DESCRIPTION,
     instruction=VISUALIZATION_INSTRUCTIONS,
     code_executor=BuiltInCodeExecutor(),
@@ -163,7 +174,8 @@ visualization_tool = AgentTool(agent=visualization_agent)
 
 root_agent = Agent(
     name="mclaren_race_intelligence",
-    model="gemini-2.5-flash",
+    model="gemini-3-flash-preview",
+    generate_content_config=shared_config,
     description=ROOT_AGENT_DESCRIPTION,
     instruction=get_root_agent_instructions(PROJECT_ID),
     tools=[bigquery_toolset, get_podium_predictions, visualization_tool],

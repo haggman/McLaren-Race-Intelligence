@@ -23,6 +23,7 @@ from google.adk.tools.agent_tool import AgentTool
 from google.adk.tools.bigquery import BigQueryCredentialsConfig, BigQueryToolset
 from google.adk.code_executors import BuiltInCodeExecutor
 from google.cloud import bigquery
+from google.genai import types
 
 from .prompts import (
     ROOT_AGENT_DESCRIPTION,
@@ -37,6 +38,15 @@ from .prompts import (
 PROJECT_ID = os.environ.get("PROJECT_ID")
 LOCATION = os.environ.get("REGION", "us-central1")
 
+# ============================================================================
+# Enable Provisioned Throughput (where applicable)
+# ============================================================================
+shared_config = types.GenerateContentConfig(
+    http_options=types.HttpOptions(
+        api_version="v1",
+        headers={"X-Vertex-AI-LLM-Request-Type": "shared"},
+    ),
+)
 
 # ============================================================================
 # TODO 1 — Connect to BigQuery using ADK's Built-in BigQueryToolset
