@@ -45,6 +45,14 @@ shared_config = types.GenerateContentConfig(
     http_options=types.HttpOptions(
         api_version="v1",
         headers={"X-Vertex-AI-LLM-Request-Type": "shared"},
+        retry_options=types.HttpRetryOptions(
+            attempts=10,
+            initial_delay=0.5,      # start fast
+            max_delay=4.0,          # cap each wait at 4s
+            exp_base=2.0,           # doubles until capped
+            jitter=1.0,             # avoid thundering-herd retries
+            http_status_codes=[408, 429, 500, 502, 503, 504],
+        ),
     ),
 )
 
