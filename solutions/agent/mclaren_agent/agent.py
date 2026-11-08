@@ -20,7 +20,7 @@ import os
 import google.auth
 from google.adk.agents import Agent
 from google.adk.tools.agent_tool import AgentTool
-from google.adk.tools.bigquery import BigQueryCredentialsConfig, BigQueryToolset
+from google.adk.integrations.bigquery import BigQueryCredentialsConfig, BigQueryToolset
 from google.adk.code_executors import BuiltInCodeExecutor
 from google.cloud import bigquery
 from google.genai import types

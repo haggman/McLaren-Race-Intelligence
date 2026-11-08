@@ -24,7 +24,7 @@ echo "Region  : $REGION"
 python3 -m venv .venv
 source .venv/bin/activate
 pip install --upgrade pip
-pip install -r requirements.txt
+pip install -r mclaren_agent/requirements.txt
 
 echo ""
 echo "=== Setup Complete ==="

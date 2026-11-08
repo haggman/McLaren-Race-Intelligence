@@ -1,0 +1,11 @@
+# McLaren Race Intelligence Platform — ADK Agent Dependencies
+# Targets ADK 2.x (GA 2026-05-19). This file lives in the agent folder because
+# `adk deploy agent_engine` reads requirements.txt from there (the old
+# --requirements_file flag is deprecated), and the deploy requires the v2
+# Agent Platform SDK (google-cloud-aiplatform>=2.2).
+
+google-adk>=2.14,<3
+google-cloud-aiplatform[adk,agent_engines]>=2.2,<3
+google-cloud-bigquery>=3.41,<4
+pandas>=3.0,<4
+db-dtypes>=1.5,<2
