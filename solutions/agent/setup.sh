@@ -1,6 +1,6 @@
 #!/bin/bash
 # McLaren Race Intelligence Platform — ADK Agent Setup
-# Run this from ~/McLaren-Race-Intelligence/adk-agent/
+# Run this from ~/McLaren-Race-Intelligence/agent/
 
 set -e
 

@@ -166,7 +166,7 @@ def get_podium_predictions(season: int = 2024) -> dict:
 
 visualization_agent = Agent(
     name="visualization_agent",
-    model="gemini-3-flash-preview",
+    model="gemini-3.8-flash",
     generate_content_config=shared_config,
     description=VISUALIZATION_AGENT_DESCRIPTION,
     instruction=VISUALIZATION_INSTRUCTIONS,
@@ -182,7 +182,7 @@ visualization_tool = AgentTool(agent=visualization_agent)
 
 root_agent = Agent(
     name="mclaren_race_intelligence",
-    model="gemini-3-flash-preview",
+    model="gemini-3.8-flash",
     generate_content_config=shared_config,
     description=ROOT_AGENT_DESCRIPTION,
     instruction=get_root_agent_instructions(PROJECT_ID),
