@@ -13,8 +13,6 @@ build/
 # ADK local storage
 .adk/
 
-# Environment files with real credentials
-.env
 
 # OS
 .DS_Store
